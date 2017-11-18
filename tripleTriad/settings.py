@@ -25,7 +25,7 @@ SECRET_KEY = 'u0_!ttfx8st+^h7)v1d)sq=ljyw0s_l)-jh7&6bb33=&lcu-2('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['tripletriad.ga','www.tripletriad.ga']
+ALLOWED_HOSTS = ['127.0.0.1','tripletriad.ga','www.tripletriad.ga']
 
 
 # Application definition
