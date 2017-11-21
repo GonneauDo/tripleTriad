@@ -1,1 +1,18 @@
-Salut les coupains
+<html>
+	{% load static %}
+	<head>
+		<title>Triple Triad</title>
+		<link rel="stylesheet" href="{% static 'style.css' %}">
+	</head>
+	<body style='
+	background: url("{% static "backgroundImage.jpg" %}");
+	background-size: cover;
+	'>
+		<div class="menu">
+			<a href="">Accueil</a>
+			<a href="play">Jouer</a>
+			<a href="compte">Mon compte</a>
+			<a href="aide">Règles</a>
+		</div>
+	</body>
+</html>
