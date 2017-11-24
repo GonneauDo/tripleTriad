@@ -1,11 +1,15 @@
 <!DOCTYPE HTML>
+{% load static %}
 <html>
 	<head>
 		<title>Triple Triad - Aide</title>
 	</head>
-	<body>
-		<h1 style="text-align : center; margin : 4% auto"><u>Bienvenue sur les règles du jeu !</u></h1>
-		<section style="margin : auto 5%; font-size: 20px" >
+	<body style='
+		background: url("{% static "background.jpg" %}") ;
+		background-size: cover;
+		'>
+		<h1 style="text-align : center; margin : 15vh auto"><u>Bienvenue sur les règles du jeu !</u></h1>
+		<section style="margin : auto 15%; font-size: 20px" >
 			<p>
 				Le plateau de jeu est une grille de 3 x 3. Chaque joueur place une carte sur le plateau durant son tour, jusqu'à ce que la grille soit pleine. Les cartes ont une force dans chaque direction (haut, droite, bas et gauche) et peuvent être d'un élément.
 			</p>
@@ -16,11 +20,12 @@
 				Si vous placez une carte à côté d'une carte adverse, il y a bataille. Si la force de votre carte est supérieure à celle de votre adversaire, alors vous gagnez la bataille ; la carte adverse prend votre couleur. Les forces utilisées sont celles se faisant face. En cas d'égalité, rien ne se passe. Chaque fois que vous gagnez une bataille, vous gagnez un point, et votre adversaire en perd un. Au début de la partie, vous avez chacun 5 points. A la fin, le joueur avec le plus de points gagne. En cas d'égalité, c'est un match nul.
 			</p>
 
-			<!-- METTRE IMG QUAND ÇA MARCHERA -->
+			<!-- METTRE IMG QUAND ÇA MARCHERA 
 
 			<p>
 				Sur cette carte vous pouvez voir les cardinalités de la carte en haut à gauche.
 			</p>
+			-->
 		</section>
 	</body>
 </html>
