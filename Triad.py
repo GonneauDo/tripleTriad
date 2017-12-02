@@ -1,8 +1,9 @@
 from random import randint
+from os import system
 
 class Carte:
     id = 1
-    def __init__(self, joueur, droite, haut, bas, gauche):
+    def __init__(self, joueur, gauche, haut, bas, droite):
         self.id = Carte.id
         Carte.id += 1
 
@@ -81,10 +82,10 @@ class Grille:
         voisins = {}
         voisins["haut"] = self[index-3] if index-3 >= 0 else None
         voisins["bas"] = self[index+3] if index+3 < 9 else None
-        voisins["gauche"] = self[index+1] if index+1 < 9 else None
-        voisins["droite"] = self[index-1] if index-1 >= 0 else None
+        voisins["gauche"] = self[index-1] if index-1 >= 0 else None
+        voisins["droite"] = self[index+1] if index+1 < 9 else None
 
-        # La c'est un tableau donc la référence marche
+        # La c'est un dictionnaire donc la référence marche
         if carte.bataille(voisins["haut"], "haut") and voisins["haut"]:
             voisins["haut"].joueur = carte.joueur
         if carte.bataille(voisins["bas"], "bas") and voisins["bas"]:
@@ -100,17 +101,28 @@ class Grille:
 
 if __name__ == "__main__":
     grille = Grille()
+    joueur1 = True
+    nb_tours = 1
 
-    print(grille)
-    c1 = Carte(1, 10, 2, 3, 4)
-    grille.poser(c1, 3)
-    print(grille)
+    while nb_tours <= 9:
+        system("clear")
+        print(grille)
 
-    c2 = Carte(2, 3, 2, 1, 4)
-    grille.poser(c2, 5)
-    print(grille)
+        joueur = 1 if joueur1 else 2
+        print("C'est au tour du joueur %d" % joueur)
+        position = int(input("Où voulez vous poser votre carte ? "))
+        points_carte = list(map(int, input("Entrez gauche haut bas droite : ").split(" "))) # Cette ligne est dégueu mais osef
 
-    c2 = Carte(2, 3, 4, 1, 4)
-    grille.poser(c2, 6)
-    print(grille)
+        # l'opérateur * "aplatit" une liste pour la faire tenir dans des arguments c'est grave pratique
+        carte = Carte(joueur, *points_carte)
+        print(carte)
+        grille.poser(carte, position)
 
+        joueur1 = not joueur1
+
+    nb_points_j1 = filter(lambda carte: carte.id == 1, grille.cartes)
+    nb_points_j2 = 9 - nb_points_j1
+
+    gagnant = 1 if nb_points_j1 > nb_points_j2 else 2
+
+    print(gagnant)
