@@ -3,8 +3,8 @@ class Joueur:
         self.score = 5
         self.main = Main()
 
-    def deposer_carte()
-    def retourner_carte()
+    def deposer_carte():
+    def retourner_carte():
     def incrementer_score():
         self.score += 1
 
