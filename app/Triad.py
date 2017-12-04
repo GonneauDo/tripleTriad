@@ -110,13 +110,30 @@ if __name__ == "__main__":
 
         joueur = 1 if joueur1 else 2
         print("C'est au tour du joueur %d" % joueur)
-        position = int(input("Où voulez vous poser votre carte ? "))
-        points_carte = list(map(int, input("Entrez gauche haut bas droite : ").split(" "))) # Cette ligne est dégueu mais osef
+        try:
+            position = int(input("Où voulez vous poser votre carte ? "))
+        except:
+            print("Erreur, vous passez votre tour")
+            input()
+            nb_tours-=1
+        else:
+            if(grille[position]!=None):
+                print("La position est déjà prise, vous passez votre tour")
+                input()
+                nb_tours-=1
+            else:
+                try:
+                    points_carte = list(map(int, input("Entrez gauche haut bas droite : ").split(" "))) # Cette ligne est dégueu mais osef
+                except:
+                    print("Erreur, vous passez votre tour")
+                    input()
+                    nb_tours-=1
+                else:
 
         # l'opérateur * "aplatit" une liste pour la faire tenir dans des arguments c'est grave pratique
-        carte = Carte(joueur, *points_carte)
-        print(carte)
-        grille.poser(carte, position)
+                    carte = Carte(joueur, *points_carte)
+                    print(carte)
+                    grille.poser(carte, position)
 
         joueur1 = not joueur1
         nb_tours +=1
