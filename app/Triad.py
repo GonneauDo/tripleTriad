@@ -121,9 +121,10 @@ if __name__ == "__main__":
         joueur1 = not joueur1
         nb_tours +=1
 
-    nb_points_j1 = int(filter(lambda carte: carte.id == 1, grille.cartes))
+    nb_points_j1 = len(list(filter(lambda carte: carte.id == 1, grille.cartes)))
     nb_points_j2 = 9 - nb_points_j1
 
     gagnant = 1 if nb_points_j1 > nb_points_j2 else 2
+    print(grille)
 
-    print(gagnant)
+    print("Le joueur %d a gagné" % gagnant)
