@@ -125,6 +125,7 @@ if __name__ == "__main__":
     nb_points_j2 = 9 - nb_points_j1
 
     gagnant = 1 if nb_points_j1 > nb_points_j2 else 2
+    system("clear")
     print(grille)
 
     print("Le joueur %d a gagné" % gagnant)
