@@ -1,6 +1,30 @@
 from random import randint
 from os import system
 
+class Main:
+    def __init__(self, joueur):
+        self.cartes = [
+            Carte(joueur, randint(1, 10), randint(1, 10), randint(1, 10), randint(1, 10)),
+            Carte(joueur, randint(1, 10), randint(1, 10), randint(1, 10), randint(1, 10)),
+            Carte(joueur, randint(1, 10), randint(1, 10), randint(1, 10), randint(1, 10)),
+            Carte(joueur, randint(1, 10), randint(1, 10), randint(1, 10), randint(1, 10)),
+            Carte(joueur, randint(1, 10), randint(1, 10), randint(1, 10), randint(1, 10))
+        ]
+
+    def __str__(self):
+        return "\n".join(["{}: {}".format(i, carte) for i, carte in enumerate(self.cartes)])
+
+    def __getitem__(self, index):
+        return self.cartes[index]
+
+class Joueur:
+    def __init__(self, nom):
+        self.nom = nom
+        self.main = Main(self)
+
+    def __str__(self):
+        return str(self.nom)
+
 class Carte:
     id = 1
     def __init__(self, joueur, gauche, haut, bas, droite):
@@ -53,12 +77,13 @@ class Grille:
 
     def __str__(self):
         return "\n\n".join([
-            "{c[0]} \t{c[1]} \t{c[2]}",
-            "{c[3]} \t{c[4]} \t{c[5]}",
-            "{c[6]} \t{c[7]} \t{c[8]}\n\n\n"
+            "[0] {c[0]} \t[1] {c[1]} \t[2] {c[2]}",
+            "[3] {c[3]} \t[4] {c[4]} \t[5] {c[5]}",
+            "[6] {c[6]} \t[7] {c[7]} \t[8] {c[8]}\n\n\n"
         ]).format(
             c = self.cartes
         )
+
 
     def __getitem__(self, index):
         return self.cartes[index]
@@ -101,6 +126,8 @@ class Grille:
 
 if __name__ == "__main__":
     grille = Grille()
+    j1 = Joueur(1)
+    j2 = Joueur(2)
     joueur1 = True
     nb_tours = 1
 
@@ -108,8 +135,9 @@ if __name__ == "__main__":
         system("clear")
         print(grille)
 
-        joueur = 1 if joueur1 else 2
-        print("C'est au tour du joueur %d" % joueur)
+        joueur = j1 if joueur1 else j2
+        print("C'est au tour du joueur %s" % joueur)
+        print(joueur.main)
         try:
             position = int(input("Où voulez vous poser votre carte ? "))
         except:
@@ -123,7 +151,8 @@ if __name__ == "__main__":
                 nb_tours-=1
             else:
                 try:
-                    points_carte = list(map(int, input("Entrez gauche haut bas droite : ").split(" "))) # Cette ligne est dégueu mais osef
+                    # points_carte = list(map(int, input("Entrez gauche haut bas droite : ").split(" "))) # Cette ligne est dégueu mais osef
+                    pos_carte = int(input("Vous choisissez quelle carte ? "))
                 except:
                     print("Erreur, vous passez votre tour")
                     input()
@@ -131,7 +160,8 @@ if __name__ == "__main__":
                 else:
 
         # l'opérateur * "aplatit" une liste pour la faire tenir dans des arguments c'est grave pratique
-                    carte = Carte(joueur, *points_carte)
+                    # carte = Carte(joueur, *points_carte)
+                    carte = joueur.main[pos_carte]
                     print(carte)
                     grille.poser(carte, position)
 
