@@ -9,10 +9,19 @@ html{
 body{
 	height:100vh;
 	width:100%;
-	color:blue;
+	color:#f1f1f1;
 	background-color:blue;
 	background-opacity:0.5;
 }
+
+.menu{
+	animation-duration:1s;
+	animation-name:slide;
+}
+@keyframes slide{
+	from{margin-left:-20%;opacity:0;}
+}
+
 
 .menu{
 	display:flex;
@@ -26,12 +35,44 @@ body{
 	padding-top:12vh;
 }
 
-.menu{
-	animation-duration:1s;
-	animation-name:slide;
+.menu2{
+	display:flex;
+	flex-direction:column;
+	width:17%;
+	height:100vh;
+	line-height:25vh;
+	font-family:impact;
+	font-size:5vh;
+	text-align:center;
+	padding-top:12vh;
+	margin-left:82%;
+	margin-top:-112vh;
 }
-@keyframes slide{
-	from{margin-left:-20%;opacity:0;}
+
+.menu2{
+	animation-duration:1s;
+	animation-name:slide2;
+}
+@keyframes slide2{
+	from{margin-left:100%;opacity:0;}
+}
+
+.disapear{
+	animation-duration:2s;
+	animation-name:disapeare;
+}
+@keyframes disapeare{
+	from{
+		background-color:rgba(0,0,0,0.6);
+	}
+}
+
+.appear{
+	animation-duration:2s;
+	animation-name:appeare;
+}
+@keyframes appeare{
+	from{opacity:0;}
 }
 
 a{
@@ -43,5 +84,5 @@ a{
 }
 
 a:visited{
-	color:pink;
+	color:;
 }
