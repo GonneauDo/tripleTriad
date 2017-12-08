@@ -1,5 +1,6 @@
 from random import randint
 from os import system
+from time import sleep
 
 class Main:
     def __init__(self, joueur):
@@ -141,37 +142,33 @@ if __name__ == "__main__":
         joueur = j1 if joueur1 else j2
         print("C'est au tour du joueur %s" % joueur)
         print(joueur.main)
+        redo = False
+
+        try:
+            pos_carte = int(input("Vous choisissez quelle carte ? "))
+        except:
+            print("Cette carte n'est pas disponible")
+            sleep(2)
+            redo = True
+
         try:
             position = int(input("Où voulez vous poser votre carte ? "))
+            if grille[position] != None:
+                raise Exception("Occupé")
         except:
-            print("Erreur, vous passez votre tour")
-            input()
-            nb_tours-=1
-        else:
-            if(grille[position]!=None):
-                print("La position est déjà prise, vous passez votre tour")
-                sleep(2)
-                nb_tours-=1
-            else:
-                try:
-                    # points_carte = list(map(int, input("Entrez gauche haut bas droite : ").split(" "))) # Cette ligne est dégueu mais osef
-                    pos_carte = int(input("Vous choisissez quelle carte ? "))
-                except:
-                    print("Erreur, vous passez votre tour")
-                    input()
-                    nb_tours-=1
-                else:
+            print("Cette position n'est pas disponible")
+            sleep(2)
+            redo = True
 
-        # l'opérateur * "aplatit" une liste pour la faire tenir dans des arguments c'est grave pratique
-                    # carte = Carte(joueur, *points_carte)
-                    carte = joueur.main[pos_carte]
-                    print(carte)
-                    joueur.main.cartes.remove(carte)
-                    grille.poser(carte, position)
-                    joueur.main.remove(carte)
+        if not redo:
+            carte = joueur.main[pos_carte]
+            print(carte)
+            grille.poser(carte, position)
+            joueur.main.remove(carte)
 
-        joueur1 = not joueur1
-        nb_tours +=1
+            joueur1 = not joueur1
+            nb_tours +=1
+    # fin du jeu
 
     nb_points_j1 = len(list(filter(lambda carte: carte.id == 1, grille.cartes)))
     nb_points_j2 = 9 - nb_points_j1
