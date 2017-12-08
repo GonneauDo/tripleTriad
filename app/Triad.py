@@ -163,6 +163,7 @@ if __name__ == "__main__":
                     # carte = Carte(joueur, *points_carte)
                     carte = joueur.main[pos_carte]
                     print(carte)
+                    joueur.main.cartes.remove(carte)
                     grille.poser(carte, position)
 
         joueur1 = not joueur1
