@@ -5,7 +5,7 @@
 		<link rel="stylesheet" href="{% static 'style.css' %}">
 	</head>
 <body style='
-	background: url("{% static "backgroundImage.jpg" %}") no-repeat center;
+	background: url("{% static "backgroundImageIngame.jpg" %}") no-repeat center;
 	background-size: cover;
 	'>
 	<div class="disapear" style="margin:-8px -8px;height:100vh;">
@@ -15,9 +15,9 @@
 	</div>
 	<div class="menu2" style="background-color:black;">
 			<p>print(joueur.score)</p>
-			<form action="jouer" method="post" style="display:flex;flex-direction:column;padding-left:15%;background-color:#060606;border-radius:20px;">
-				<input style="width:80%;border-radius:20px;" type="number" placeholder="Case n°" id="pos" name="pos" min="0" max="8">
-				<input style="width:80%;border-radius:20px;" type="number" placeholder="Carte n°" id="numCarte" name="numCarte" min="0" max="4">
+			<form action="" method="post" style="display:flex;flex-direction:column;padding-left:15%;background-color:#060606;border-radius:20px;">
+				<input style="width:80%;border-radius:20px;" type="number" placeholder="Case n°" id="pos" name="pos" min="0" max="8" required>{% csrf_token %}
+				<input style="width:80%;border-radius:20px;" type="number" placeholder="Carte n°" id="numCarte" name="numCarte" min="0" max="4" required>{% csrf_token %}
 				<input style="width:80%;border-radius:20px;margin-top:2vh;" type="submit" value="Valider">
 			</form>
 	</div>
