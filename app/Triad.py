@@ -17,6 +17,9 @@ class Main:
     def __getitem__(self, index):
         return self.cartes[index]
 
+    def remove(self, carte):
+        self.cartes.remove(carte)
+
 class Joueur:
     def __init__(self, nom):
         self.nom = nom
@@ -147,7 +150,7 @@ if __name__ == "__main__":
         else:
             if(grille[position]!=None):
                 print("La position est déjà prise, vous passez votre tour")
-                input()
+                sleep(2)
                 nb_tours-=1
             else:
                 try:
@@ -164,6 +167,7 @@ if __name__ == "__main__":
                     carte = joueur.main[pos_carte]
                     print(carte)
                     grille.poser(carte, position)
+                    joueur.main.remove(carte)
 
         joueur1 = not joueur1
         nb_tours +=1
