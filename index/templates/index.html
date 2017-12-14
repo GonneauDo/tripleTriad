@@ -1,19 +1,22 @@
+<!doctype html>
 <html>
 	{% load static %}
 	<head>
 		<title>Triple Triad</title>
 		<link rel="stylesheet" href="{% static 'style.css' %}">
+		<link rel="icon" href={%static "icon.png" %}>
 	</head>
-<body style='
-	background: url("{% static "backgroundImage.jpg" %}") no-repeat center;
-	background-size: cover;
+
+	<body style='
+		background: url("{% static "backgroundImage.jpg" %}") no-repeat center;
+		background-size: cover;
 	'>
-	<div class="appear" style="margin:-8px -8px;height:100vh;background-color:rgba(0,0,0,0.6)">
-	<div class="menu" style="background-color:black;">
-			<a href="play">Jouer</a>
-			<a href="compte">Mon compte</a>
-			<a href="aide">Règles</a>
+		<div class="appear" style="margin:-8px -8px;height:100vh;background-color:rgba(0,0,0,0.6)">
+			<div class="menu" style="background-color:black;">
+				<a href="play">Jouer</a>
+				<a href="profil">Mon compte</a>
+				<a href="aide">Règles</a>
+			</div>
 		</div>
 	</body>
-	</div>
 </html>

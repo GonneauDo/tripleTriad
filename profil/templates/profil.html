@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+{% load static %}
+<html>
+	<head>
+		<title>Triple Triad - Aide</title>
+		<link rel="stylesheet" href="{% static 'styleAide.css' %}">
+		<link rel="icon" href={%static "icon.png" %}>
+	</head>
+	<body style='
+		background: url("{% static "background.jpg" %}") ;
+		background-size: cover;
+		'>
+		<section style="margin : auto 15%; font-size: 20px" >
+			<p>
+			<!--<img src={% static "profil.jpg" %} alt=Profil style=margin-left:20%;width:60%;margin-top:18vh;>-->
+			<button onclick="alert('Tu peux pas !! Pas encore !! Bientôt !!');">Se connecter</button>
+			<br/>
+			<button onclick="alert('Tu peux pas !! Pas encore !! Bientôt !!');">S'inscrire</button>
+			</p>
+
+			<!-- METTRE IMG QUAND ÇA MARCHERA 
+
+			<p>
+				Sur cette carte vous pouvez voir les cardinalités de la carte en haut à gauche.
+			</p>
+			-->
+		</section>
+		<div class="return">
+			<a href="http://tripletriad.ga"><img src={% static "return.png" %} alt="Return" style="width:5%;margin-left:75%;"></a>
+		</div>
+	</body>
+</html>

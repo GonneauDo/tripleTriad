@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 	 'aide',
 	 'index',
 	 'play',
+	 'profil',
 ]
 
 MIDDLEWARE = [

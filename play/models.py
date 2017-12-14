@@ -4,6 +4,7 @@ from django.utils import timezone
 # Create your models here.
 
 class Play(models.Model):
+	score = 5
 	author = models.ForeignKey('auth.User')
 	title = models.CharField(max_length=200)
 	text = models.TextField()
@@ -18,3 +19,12 @@ class Play(models.Model):
 	
 	def __str__(self):
 		return self.title
+
+	def DecrScore():
+		score-=1
+
+	def IncScore():
+		score+=1
+
+	def ReturnScore():
+		return score

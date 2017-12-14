@@ -1,0 +1,26 @@
+.plateau p{
+position:fixed;
+background:black
+}
+body{
+background: url("{% static "backgroundImageIngame.jpg" %}") no-repeat center;
+				background-size: cover;
+}
+.menu{
+	background-color:black;
+	margin-left:-8px;margin-top:-10px;
+}
+.menu2{
+	background-color:black;
+}
+.menu2 form{
+display:flex;
+		  flex-direction:column;
+		  padding-left:15%;
+		  background-color:#060606;
+		  border-radius:20px;
+}
+.menu2 form input{
+width:80%;
+		border-radius:20px;
+}
