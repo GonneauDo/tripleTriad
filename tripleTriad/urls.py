@@ -21,5 +21,6 @@ urlpatterns = [
 	 url(r'^aide/', include('aide.urls')),
 	 url(r'^play/', include('play.urls')),
 	 url(r'^profil/', include('profil.urls')),
+	 url(r'^testing/', include('testing.urls')),
 	 url(r'', include('index.urls')),
 ]

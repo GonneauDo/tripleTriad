@@ -13,22 +13,26 @@
 >
 	<div class="disapear" style="margin:-8px -8px;height:100vh;">
 	<div class="menu">
-			<p style=color:red>{{joueur.cartes|default:"cartes"}}</p>
+		<p>{{cartes.0|default:"cartes mais ça marche pas"}}</p>
+		<p>{{cartes.1|default:"cartes mais ça marche pas"}}</p>
+		<p>{{cartes.2|default:"cartes mais ça marche pas"}}</p>
+		<p>{{cartes.3|default:"cartes mais ça marche pas"}}</p>
+		<p>{{cartes.4|default:"cartes mais ça marche pas"}}</p>
 			<a href="..">Menu</a>
 	</div>
 	<div class="plateau" style="font-size:130%;">
-			<p style="top:9vh;margin-left:30%;">print(plateau[0]){{plateau.0}}</p>
-			<p style="top:9vh;margin-left:46%;">print(plateau[1]){{plateau.1}}</p>
-			<p style="top:9vh;margin-left:62%;">print(plateau[2]){{plateau.2}}</p>	
-			<p style="top:40vh;margin-left:30%;">print(plateau[3]){{plateau.3}}</p>
-			<p style="top:40vh;margin-left:46%;">print(plateau[4]){{plateau.4}}</p>
-			<p style="top:40vh;margin-left:62%;">print(plateau[5]){{plateau.5}}</p>	
-			<p style="top:72vh;margin-left:30%;">print(plateau[6]){{plateau.6}}</p>
-			<p style="top:72vh;margin-left:46%;">print(plateau[7]){{plateau.7}}</p>
-			<p style="top:72vh;margin-left:62%;">print(plateau[8]){{plateau.8}}</p>	
+			<p style="top:9vh;margin-left:30%;">{{plateau.0}}</p>
+			<p style="top:9vh;margin-left:46%;">{{plateau.1}}</p>
+			<p style="top:9vh;margin-left:62%;">{{plateau.2}}</p>	
+			<p style="top:40vh;margin-left:30%;">{{plateau.3}}</p>
+			<p style="top:40vh;margin-left:46%;">{{plateau.4}}</p>
+			<p style="top:40vh;margin-left:62%;">{{plateau.5}}</p>	
+			<p style="top:72vh;margin-left:30%;">{{plateau.6}}</p>
+			<p style="top:72vh;margin-left:46%;">{{plateau.7}}</p>
+			<p style="top:72vh;margin-left:62%;">{{plateau.8}}</p>	
 	</div>
 	<div class="menu2">
-			<p style=color:red>{{joueur.score|default:"score"}}</p>
+			<p style=color:red>Score : {{score|default:"score mais ça marche pas"}}</p>
 			<form action="" method="post" style="">
 				<input type="number" placeholder="Case n°" id="pos" name="pos" min="0" max="8" required>{% csrf_token %}
 				<input type="number" placeholder="Carte n°" id="numCarte" name="numCarte" min="0" max="4" {{main.lenght}} required>{% csrf_token %}

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 	 'index',
 	 'play',
 	 'profil',
+	 'testing',
 ]
 
 MIDDLEWARE = [

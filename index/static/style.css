@@ -27,8 +27,8 @@ body{
 	display:flex;
 	flex-direction:column;
 	width:18%;
-	height:100vh;
-	line-height:25vh;
+	height:89vh;
+	line-height:20vh;
 	font-family:impact;
 	font-size:5vh;
 	text-align:center;
@@ -38,7 +38,7 @@ body{
 .menu2{
 	display:flex;
 	flex-direction:column;
-	width:17%;
+	width:18%;
 	height:100vh;
 	line-height:25vh;
 	font-family:impact;

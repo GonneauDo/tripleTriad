@@ -9,6 +9,12 @@ background: url("{% static "backgroundImageIngame.jpg" %}") no-repeat center;
 .menu{
 	background-color:black;
 	margin-left:-8px;margin-top:-10px;
+	height:89vh;
+}
+.menu p{
+	line-height:2vh;
+	font-size:80%;
+	color:red;
 }
 .menu2{
 	background-color:black;

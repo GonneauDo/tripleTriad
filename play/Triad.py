@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from random import randint
 from os import system
 from time import sleep
@@ -26,7 +25,6 @@ class Joueur:
     def __init__(self, nom):
         self.nom = nom
         self.main = Main(self)
-        self.score = 5
 
     def __str__(self):
         return str(self.nom)
@@ -130,13 +128,53 @@ class Grille:
 
 
 
+if __name__ == "__main__":
+    grille = Grille()
+    j1 = Joueur(1)
+    j2 = Joueur(2)
+    joueur1 = True
+    nb_tours = 1
 
-def play(request):
-	plateau=Grille()
-	joueur=Joueur(1)
-	context={
-		"score":joueur.score,
-		"cartes":joueur.main.cartes,
-		"plateau":plateau,
-	}
-	return render(request,"testing.html",context)
+    while nb_tours <= 9:
+        system("clear")
+        print(grille)
+
+        joueur = j1 if joueur1 else j2
+        print("C'est au tour du joueur %s" % joueur)
+        print(joueur.main)
+        redo = False
+
+        try:
+            pos_carte = int(input("Vous choisissez quelle carte ? "))
+        except:
+            print("Cette carte n'est pas disponible")
+            sleep(2)
+            redo = True
+
+        try:
+            position = int(input("Où voulez vous poser votre carte ? "))
+            if grille[position] != None:
+                raise Exception("Occupé")
+        except:
+            print("Cette position n'est pas disponible")
+            sleep(2)
+            redo = True
+
+        if not redo:
+            carte = joueur.main[pos_carte]
+            print(carte)
+            grille.poser(carte, position)
+            joueur.main.remove(carte)
+
+            joueur1 = not joueur1
+            nb_tours +=1
+    # fin du jeu
+
+    nb_points_j1 = len(list(filter(lambda carte: carte.id == 1, grille.cartes)))
+    nb_points_j2 = 9 - nb_points_j1
+
+    gagnant = 1 if nb_points_j1 > nb_points_j2 else 2
+    system("clear")
+    print(grille)
+
+    print("Le joueur %d a gagné" % gagnant)
