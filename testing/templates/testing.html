@@ -13,12 +13,10 @@
 >
 	<div class="disapear" style="margin:-8px -8px;height:100vh;">
 	<div class="menu">
-		<p>{{cartes.0|default:"cartes mais ça marche pas"}}</p>
-		<p>{{cartes.1|default:"cartes mais ça marche pas"}}</p>
-		<p>{{cartes.2|default:"cartes mais ça marche pas"}}</p>
-		<p>{{cartes.3|default:"cartes mais ça marche pas"}}</p>
-		<p>{{cartes.4|default:"cartes mais ça marche pas"}}</p>
-			<a href="..">Menu</a>
+		{% for i in cartes %}
+			<p>{{forloop.counter0}}: {{num}}{{i|default:"cartes mais ça marche pas"}}</p>
+		{% endfor %}
+		<a href="..">Menu</a>
 	</div>
 	<div class="plateau" style="font-size:130%;">
 			<p style="top:9vh;margin-left:30%;">{{plateau.0}}</p>
