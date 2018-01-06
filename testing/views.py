@@ -2,6 +2,7 @@ from django.shortcuts import render
 from random import randint
 from os import system
 from time import sleep
+from django.http import SimpleCookie
 
 class Main:
     def __init__(self, joueur):
@@ -131,12 +132,26 @@ class Grille:
 
 
 
-def play(request):
-	plateau=Grille()
-	joueur=Joueur(1)
+def play(request):	
+	plateau
+	joueur1
+	joueur2
+	if not'c_scr1' in request.COOKIES:
+		plateau=Grille()
+		joueur1=Joueur(1)
+		joueur2=Joueur(2)
+
 	context={
-		"score":joueur.score,
-		"cartes":joueur.main.cartes,
+		"score":joueur1.score,
+		"cartes":joueur1.main.cartes,
 		"plateau":plateau,
 	}
-	return render(request,"testing.html",context)
+
+	resp=render(request,"testing.html",context)
+	resp.set_cookie('c_scr1',5)
+	resp.set_cookie('c_j1',joueur1.score)
+	resp.set_cookie('c_scr2',5)
+	resp.set_cookie('c_j2',joueur2.score)
+	resp.set_cookie('c_plateau',plateau)
+
+	return resp
