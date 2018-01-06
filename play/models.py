@@ -3,7 +3,7 @@ from django.utils import timezone
 
 # Create your models here.
 
-class Play(models.Model):
+class Testing(models.Model):
 	score = 5
 	author = models.ForeignKey('auth.User')
 	title = models.CharField(max_length=200)

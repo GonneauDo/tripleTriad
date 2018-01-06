@@ -44,11 +44,12 @@ class Carte:
         self.gauche = gauche
 
     def __str__(self):
-        return "← {gauche} ↑ {haut} ↓ {bas} → {droite}".format(
+        return "({joueur})← {gauche} ↑ {haut} ↓ {bas} → {droite}".format(
             haut = self.haut,
             droite = self.droite,
             bas = self.bas,
             gauche = self.gauche,
+            joueur = self.joueur
         )
 
     def bataille(self, other, position):
