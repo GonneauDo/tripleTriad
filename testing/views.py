@@ -132,7 +132,11 @@ class Grille:
 
 
 
+<<<<<<< HEAD
 def play(request):
+=======
+def play(request):	
+>>>>>>> 185bbd1ba287495510a4f1299b5a5c7bf23d666e
 #	if not'c_scr1' in request.COOKIES:
 	plateau=Grille()
 	joueur1=Joueur(1)
