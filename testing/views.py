@@ -2,6 +2,7 @@ from django.shortcuts import render
 from random import randint
 from os import system
 from time import sleep
+from django.http import SimpleCookie
 
 class Main:
     def __init__(self, joueur):
@@ -132,11 +133,41 @@ class Grille:
 
 
 def play(request):
+#	if not'c_scr1' in request.COOKIES:
 	plateau=Grille()
-	joueur=Joueur(1)
+	joueur1=Joueur(1)
+	joueur2=Joueur(2)
+
 	context={
-		"score":joueur.score,
-		"cartes":joueur.main.cartes,
+		"score":joueur1.score,
+		"cartes":joueur1.main.cartes,
 		"plateau":plateau,
 	}
-	return render(request,"testing.html",context)
+
+	resp=render(request,"testing.html",context)
+	resp.set_cookie('c_scr1',joueur1.score)
+	resp.set_cookie('c_scr2',joueur2.score)
+
+	resp.set_cookie('c_j1_0',joueur1.main.cartes(0))
+	resp.set_cookie('c_j1_1',joueur1.main.cartes)
+	resp.set_cookie('c_j1_2',joueur1.main.cartes)
+	resp.set_cookie('c_j1_3',joueur1.main.cartes)
+	resp.set_cookie('c_j1_4',joueur1.main.cartes)
+
+	resp.set_cookie('c_j2_0',joueur1.main.cartes)
+	resp.set_cookie('c_j2_1',joueur1.main.cartes)
+	resp.set_cookie('c_j2_2',joueur1.main.cartes)
+	resp.set_cookie('c_j2_3',joueur1.main.cartes)
+	resp.set_cookie('c_j2_4',joueur1.main.cartes)
+
+	resp.set_cookie('c_p0',plateau[0])
+	resp.set_cookie('c_p1',plateau[1])
+	resp.set_cookie('c_p2',plateau[2])
+	resp.set_cookie('c_p3',plateau[3])
+	resp.set_cookie('c_p4',plateau[4])
+	resp.set_cookie('c_p5',plateau[5])
+	resp.set_cookie('c_p6',plateau[6])
+	resp.set_cookie('c_p7',plateau[7])
+	resp.set_cookie('c_p8',plateau[8])
+
+	return resp

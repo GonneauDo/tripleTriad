@@ -1,0 +1,47 @@
+{% load static %}
+
+html{
+	height: 100vh;
+	width: 100%;
+	overflow:hidden;
+}
+
+body{
+	height:100vh;
+	width:100%;
+	color:blue;
+	background-color:blue;
+	background-opacity:0.5;
+}
+
+.menu{
+	display:flex;
+	flex-direction:column;
+	width:18%;
+	height:100vh;
+	line-height:25vh;
+	font-family:impact;
+	font-size:5vh;
+	text-align:center;
+	padding-top:12vh;
+}
+
+.menu{
+	animation-duration:1s;
+	animation-name:slide;
+}
+@keyframes slide{
+	from{margin-left:-20%;opacity:0;}
+}
+
+a{
+	color:#F1F1F1;
+	background-color:#150A00;
+	border-radius:40%;
+	text-decoration:none;
+	font-style:italic;
+}
+
+a:visited{
+	color:pink;
+}

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 	 'play',
 	 'profil',
 	 'testing',
+     'carte',
 ]
 
 MIDDLEWARE = [
