@@ -1,17 +1,21 @@
 from django.shortcuts import render
 from random import randint
+from random import randrange as r
 from os import system
 from time import sleep
-from django.http import SimpleCookie
+import sqlite3
+from django.db import connection
+from django import forms
+from django.http import HttpResponse
 
 class Main:
     def __init__(self, joueur):
         self.cartes = [
-            Carte(joueur, randint(1, 10), randint(1, 10), randint(1, 10), randint(1, 10)),
-            Carte(joueur, randint(1, 10), randint(1, 10), randint(1, 10), randint(1, 10)),
-            Carte(joueur, randint(1, 10), randint(1, 10), randint(1, 10), randint(1, 10)),
-            Carte(joueur, randint(1, 10), randint(1, 10), randint(1, 10), randint(1, 10)),
-            Carte(joueur, randint(1, 10), randint(1, 10), randint(1, 10), randint(1, 10))
+            Carte(joueur, r(5)),
+            Carte(joueur, r(5)),
+            Carte(joueur, r(5)),
+            Carte(joueur, r(5)),
+            Carte(joueur, r(5)),
         ]
 
     def __str__(self):
@@ -33,24 +37,27 @@ class Joueur:
         return str(self.nom)
 
 class Carte:
-    id = 1
-    def __init__(self, joueur, gauche, haut, bas, droite):
-        self.id = Carte.id
-        Carte.id += 1
-
+    def __init__(self, joueur,id):
+        self.id = id
+        connexion = sqlite3.connect('db.sqlite3')
+        cursor = connexion.cursor()
+        cursor.execute("SELECT * FROM carte_carte WHERE id = id; ")
+        liste = cursor.fetchall()
         self.joueur = joueur
-        self.haut = haut
-        self.droite = droite
-        self.bas = bas
-        self.gauche = gauche
+        self.Haut = liste[id][5]
+        self.Droite = liste[id][1]
+        self.Bas = liste[id][2]
+        self.Gauche = liste[id][3]
+        print(list)
+
+
 
     def __str__(self):
-        return "({joueur})← {gauche} ↑ {haut} ↓ {bas} → {droite}".format(
-            haut = self.haut,
-            droite = self.droite,
-            bas = self.bas,
-            gauche = self.gauche,
-            joueur = self.joueur
+        return "← {Gauche} ↑ {Haut} ↓ {Bas} → {Droite}".format(
+            Haut = self.Haut,
+            Droite = self.Droite,
+            Bas = self.Bas,
+            Gauche = self.Gauche,
         )
 
     def bataille(self, other, position):
@@ -62,14 +69,14 @@ class Carte:
         if other == None: # other est soit pas posée, soit en dehors du terrain
             return self.id
         else:
-            if position == "haut":
-                return self.haut > other.bas
-            elif position == "bas":
-                return self.bas > other.haut
-            elif position == "gauche":
-                return self.gauche > other.droite
-            elif position == "droite":
-                return self.droite > other.gauche
+            if position == "Haut":
+                return self.Haut > other.Bas
+            elif position == "Bas":
+                return self.Bas > other.Haut
+            elif position == "Gauche":
+                return self.Gauche > other.Droite
+            elif position == "Droite":
+                return self.Droite > other.Gauche
 
 class Grille:
     def __init__(self):
@@ -105,69 +112,58 @@ class Grille:
         6 7 8
         """
         """
-        en haut -> -3
-        en bas -> +3
-        a gauche -> -1
-        a droite -> +1
+        en Haut -> -3
+        en Bas -> +3
+        a Gauche -> -1
+        a Droite -> +1
         """
 
         voisins = {}
-        voisins["haut"] = self[index-3] if index-3 >= 0 else None
-        voisins["bas"] = self[index+3] if index+3 < 9 else None
-        voisins["gauche"] = self[index-1] if index-1 >= 0 else None
-        voisins["droite"] = self[index+1] if index+1 < 9 else None
+        voisins["Haut"] = self[index-3] if index-3 >= 0 else None
+        voisins["Bas"] = self[index+3] if index+3 < 9 else None
+        voisins["Gauche"] = self[index-1] if index-1 >= 0 else None
+        voisins["Droite"] = self[index+1] if index+1 < 9 else None
 
-        # La c'est un dictionnaire donc la référence marche
-        if carte.bataille(voisins["haut"], "haut") and voisins["haut"]:
-            voisins["haut"].joueur = carte.joueur
-        if carte.bataille(voisins["bas"], "bas") and voisins["bas"]:
-            voisins["bas"].joueur = carte.joueur
-        if carte.bataille(voisins["gauche"], "gauche") and voisins["gauche"]:
-            voisins["gauche"].joueur = carte.joueur
-        if carte.bataille(voisins["droite"], "droite") and voisins["droite"]:
-            voisins["droite"].joueur = carte.joueur
+        # # La c'est un dictionnaire donc la référence marche
+        # if carte.bataille(voisins["Haut"], "Haut") and voisins["Haut"]:
+        #     voisins["Haut"].joueur = carte.joueur
+        # if carte.bataille(voisins["Bas"], "Bas") and voisins["Bas"]:
+        #     voisins["Bas"].joueur = carte.joueur
+        # if carte.bataille(voisins["Gauche"], "Gauche") and voisins["Gauche"]:
+        #     voisins["Gauche"].joueur = carte.joueur
+        # if carte.bataille(voisins["Droite"], "Droite") and voisins["Droite"]:
+        #     voisins["Droite"].joueur = carte.joueur
 
         self[index] = carte
 
 
 
 
-def play(request):	
-#	if not'c_scr1' in request.COOKIES:
-	plateau=Grille()
-	joueur1=Joueur(1)
-	joueur2=Joueur(2)
+def play(request):
 
-	context={
-		"score":joueur1.score,
-		"cartes":joueur1.main.cartes,
-		"plateau":plateau,
-	}
+    if not 'ingame' in request.session:
+        connexion = sqlite3.connect('db.sqlite3')
+        cursor = connexion.cursor()
+        plateau = Grille()
+        joueur =  Joueur(1)
+        context={
+            "score":joueur.score,
+            "cartes":joueur.main.cartes,
+            "plateau":plateau,
+        }
+    request.session['ingame'] = True #A supprimer dans fin de partie
 
-	resp=render(request,"testing.html",context)
-	resp.set_cookie('c_scr1',joueur1.score)
-	resp.set_cookie('c_scr2',joueur2.score)
 
-	resp.set_cookie('c_j1_0',joueur1.main.cartes(0))
-	resp.set_cookie('c_j1_1',joueur1.main.cartes)
-	resp.set_cookie('c_j1_2',joueur1.main.cartes)
-	resp.set_cookie('c_j1_3',joueur1.main.cartes)
-	resp.set_cookie('c_j1_4',joueur1.main.cartes)
+    if request.POST.get('pos'):
+        position = int(request.POST.get('pos'))
+        numCarte = int(request.POST.get('numCarte'))
+        carte = request.session.get('joueur', joueur).main[numCarte]
+        plateau.poser(carte,position)
 
-	resp.set_cookie('c_j2_0',joueur1.main.cartes)
-	resp.set_cookie('c_j2_1',joueur1.main.cartes)
-	resp.set_cookie('c_j2_2',joueur1.main.cartes)
-	resp.set_cookie('c_j2_3',joueur1.main.cartes)
-	resp.set_cookie('c_j2_4',joueur1.main.cartes)
+    context={
+        "score":request.session.get('joueur', joueur).score,
+        "cartes":request.session.get('joueur', joueur ).main.cartes,
+        "plateau":request.session.get('plateau', plateau),
+    }
 
-	resp.set_cookie('c_p0',plateau[0])
-	resp.set_cookie('c_p1',plateau[1])
-	resp.set_cookie('c_p2',plateau[2])
-	resp.set_cookie('c_p3',plateau[3])
-	resp.set_cookie('c_p4',plateau[4])
-	resp.set_cookie('c_p5',plateau[5])
-	resp.set_cookie('c_p6',plateau[6])
-	resp.set_cookie('c_p7',plateau[7])
-	resp.set_cookie('c_p8',plateau[8])
-
-	return resp
+    return render(request,"testing.html",context)

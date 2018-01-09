@@ -3,20 +3,20 @@ from django.utils import timezone
 
 
 class Carte(models.Model):
-    Nom = models.ForeignKey('auth.User')
-    valueH = models.BigIntegerField()
-    valueD = models.BigIntegerField()
-    valueB = models.BigIntegerField()
-    valueG = models.BigIntegerField()
+    Nom = models.CharField(max_length=80)
+    haut = models.BigIntegerField()
+    bas = models.BigIntegerField()
+    droite = models.BigIntegerField()
+    gauche = models.BigIntegerField()
 
     def __int__(self):
-        return self.valueH
+        return self.haut
 
     def __int__(self):
-        return self.valueD
+        return self.bas
 
     def __int__(self):
-        return self.valueB
+        return self.droite
 
     def __int__(self):
-        return self.valueG
+        return self.gauche

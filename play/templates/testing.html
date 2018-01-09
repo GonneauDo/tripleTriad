@@ -21,20 +21,21 @@
 	<div class="plateau" style="font-size:130%;">
 			<p style="top:9vh;margin-left:30%;">{{plateau.0}}</p>
 			<p style="top:9vh;margin-left:46%;">{{plateau.1}}</p>
-			<p style="top:9vh;margin-left:62%;">{{plateau.2}}</p>	
+			<p style="top:9vh;margin-left:62%;">{{plateau.2}}</p>
 			<p style="top:40vh;margin-left:30%;">{{plateau.3}}</p>
 			<p style="top:40vh;margin-left:46%;">{{plateau.4}}</p>
-			<p style="top:40vh;margin-left:62%;">{{plateau.5}}</p>	
+			<p style="top:40vh;margin-left:62%;">{{plateau.5}}</p>
 			<p style="top:72vh;margin-left:30%;">{{plateau.6}}</p>
 			<p style="top:72vh;margin-left:46%;">{{plateau.7}}</p>
-			<p style="top:72vh;margin-left:62%;">{{plateau.8}}</p>	
+			<p style="top:72vh;margin-left:62%;">{{plateau.8}}</p>
 	</div>
 	<div class="menu2">
 			<p style=color:red>Score : {{score|default:"score mais ça marche pas"}}</p>
-			<form action="" method="post" style="">
-				<input type="number" placeholder="Case n°" id="pos" name="pos" min="0" max="8" required>{% csrf_token %}
+			<form action="./" method="post" style="">
 				<input type="number" placeholder="Carte n°" id="numCarte" name="numCarte" min="0" max="4" {{main.lenght}} required>{% csrf_token %}
+				<input type="number" placeholder="Case n°" id="pos" name="pos" min="0" max="8" required>{% csrf_token %}
 				<!--Faudra penser à faire passer la taille de la main pour le max-->
+				
 				<input type="submit" value="Valider">
 			</form>
 	</div>
