@@ -14,8 +14,8 @@ class Main:
             Carte(joueur, r(5)),
             Carte(joueur, r(5)),
             Carte(joueur, r(5)),
-            Carte(joueur, r(3)),
-            Carte(joueur, r(4)),
+            Carte(joueur, r(5)),
+            Carte(joueur, r(5)),
         ]
 
     def __str__(self):
@@ -28,17 +28,10 @@ class Main:
         self.cartes.remove(carte)
 
 class Joueur:
-
-    def __init__(self, nom, main, score):
-        self.nom = nom
-        self.main = main.split()
-        self.score = score
-
     def __init__(self, nom):
         self.nom = nom
         self.main = Main(self)
         self.score = 5
-
 
     def __str__(self):
         return str(self.nom)
@@ -147,34 +140,41 @@ class Grille:
 
 
 def play(request):
-    if not 'ingame' in request.COOKIES:
-        connexion = sqlite3.connect('db.sqlite3')
-        cursor = connexion.cursor()
-        plateau=Grille()
-        joueur=Joueur(1)
-        context={
-            "score":joueur.score,
-            "cartes":joueur.main.cartes,
-            "plateau":plateau,
-        }
-        resp = render(request,"testing.html",context)
-        resp.set_cookie(key = 'nomJoueur', value = joueur.nom)
-        resp.set_cookie(key = 'joueur', value = ', '.join(joueur.main))
-        resp.set_cookie(key = 'scoreJoueur', value = joueur.score)
-        resp.set_cookie(key = 'ingame',value = True) #A supprimer dans fin de partie
-        return resp
 
-    joueur = Joueur(request.COOKIES['nomJoueur'],request.COOKIES['joueur'],request.COOKIES['scoreJoueur'])
-
-    if request.POST.get('pos'):
-        position = int(request.POST.get('pos'))
-        numCarte = int(request.POST.get('numCarte'))
-        carte = joueur.main[numCarte]
-        plateau.poser(carte,position)
-
+    # if not 'ingame' in request.session:
+        # request.session = {
+        #     "plateau": ziehfzef,
+        #     "joueur": hfezufhzuhf
+        # }
+    connexion = sqlite3.connect('db.sqlite3')
+    cursor = connexion.cursor()
+    plateau = Grille()
+    joueur =  Joueur(1)
     context={
         "score":joueur.score,
         "cartes":joueur.main.cartes,
         "plateau":plateau,
-	}
+    }
+    request.session['ingame'] = True #A supprimer dans fin de partie
+
+
+    if request.POST.get('pos'):
+        position = int(request.POST.get('pos'))
+        numCarte = int(request.POST.get('numCarte'))
+        carte = request.session.get('joueur', joueur).main[numCarte]
+        plateau.poser(carte,position)
+
+    context={
+        "score":request.session.get('joueur', joueur).score,
+        "cartes":request.session.get('joueur', joueur ).main.cartes,
+        "plateau":request.session.get('plateau', plateau),
+    }
+
+    # if 'count' in request.session:
+    #     request.session['count'] += 1
+    #     return HttpResponse('new count=%s' % request.session['count'])
+    # else:
+    #     request.session['count'] = 1
+    #     return HttpResponse('No count in session. Setting to 1')
+    #
     return render(request,"testing.html",context)
